@@ -1,96 +1,143 @@
-Wavec - Wavelet Image Codec
+🌊 Wavec — Wavelet Image Codec
 
-wavec
-platform
-language
+Wavec is an experimental wavelet-based image compression tool built as a vibe coding project — exploratory, educational, and made for fun.
 
-A simple wavelet-based image compression tool built through vibe coding — experimental, exploratory, and made for fun.
+🧪 This is not a production-ready codec. It’s a playground for learning and experimenting with wavelet transforms.
 
-Wavec Screenshot
+📸 Screenshot
 
-What is this?
+✨ Features
 
-Wavec is a Windows desktop application that implements wavelet-based image compression. It can:
+Wavec is a Windows desktop application that can:
 
 Load 24-bit BMP images
-Apply 2D Discrete Wavelet Transform (DWT) using Haar, Daubechies-4, or CDF 9/7 wavelets
-Discard small coefficients for compression
+
+Apply 2D Discrete Wavelet Transform (DWT) using:
+
+Haar
+
+Daubechies-4 (Db4)
+
+CDF 9/7
+
+Discard small coefficients for lossy compression
+
 Quantize remaining coefficients
+
 Save to a custom .WT sparse format
-Reconstruct images using Inverse DWT
 
-⚠️ Important: Image Requirements
+Reconstruct images using the Inverse DWT
 
-Use BMP images with dimensions that are powers of 2 (e.g., 256×256, 512×512, 1024×1024, 512×256, etc.)
+Export reconstructed images as BMP
 
-This ensures optimal wavelet decomposition across all levels. Non-power-of-2 dimensions may work but could produce unexpected results or artifacts.
+⚠️ Image Requirements
 
-Building
+Use BMP images with dimensions that are powers of two, for example:
 
+256 × 256
+
+512 × 512
+
+1024 × 1024
+
+512 × 256
+
+This ensures optimal wavelet decomposition across all levels.
+Non–power-of-two dimensions may work, but can produce unexpected results or artifacts.
+
+🛠️ Building
 Requirements
 
-Windows 10/11
+Windows 10 / 11
+
 Visual Studio 2022 (Community edition works fine)
+
 Windows SDK
 
-Compilation
+Automatic Build
 
-Run the provided batch file:
 compile.bat
 
-Or manually:
+Manual Build
+
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 rc wavec.rc
 cl wavec.cpp wavec.res user32.lib gdi32.lib comdlg32.lib comctl32.lib /Fe:wavec.exe /O2
 
-Usage
+▶️ Usage
 
-Open a BMP — File > Open BMP... or Ctrl+O
-Transform — Process > Transform... or F5
-Select wavelet type (Haar, Db4, CDF 9/7)
-Choose decomposition levels (Auto recommended)
-Set discard percentage (higher = more compression, more loss)
-Adjust quantization bits (lower = smaller file, more artifacts)
+Open BMP
+File > Open BMP... or Ctrl + O
 
-Save as WT — File > Save WT... to save compressed format
-Save as BMP — File > Save BMP... to export reconstructed image
-Reset — F7 to restore original image
+Transform
+Process > Transform... or F5
 
-Keyboard Shortcuts
-Key	Action
-F5	Transform
-F7	Reset
-Ctrl+O	Open BMP
-Ctrl+S	Save BMP
+Configure:
 
+Wavelet type (Haar, Db4, CDF 9/7)
 
-The .WT Format
+Decomposition levels (Auto recommended)
 
-A custom sparse format that stores only non-zero wavelet coefficients as (index, quantized_value) pairs. Includes metadata for reconstruction:
+Discard percentage (higher = more compression, more loss)
+
+Quantization bits (lower = smaller file, more artifacts)
+
+Save:
+
+File > Save WT... — save compressed format
+
+File > Save BMP... — export reconstructed image
+
+Reset:
+
+F7 restores the original image
+
+⌨️ Keyboard Shortcuts
+
+Key Action
+F5 Transform
+F7 Reset
+Ctrl+O Open BMP
+Ctrl+S Save BMP
+
+📦 The .WT Format
+
+A custom sparse format that stores only non-zero wavelet coefficients as:
+
+(index, quantized_value)
+
+It includes all metadata required for reconstruction:
 
 Image dimensions
+
 Wavelet type and decomposition levels
+
 Quantization parameters
+
 Coefficient value range for dequantization
 
-Wavelets Implemented
-Wavelet	Description
-Haar	Simplest wavelet, uses averages and differences
-Daubechies-4	4-tap orthogonal wavelet with better frequency localization
-CDF 9/7	Biorthogonal wavelet used in JPEG2000, implemented via lifting scheme
+🌊 Wavelets Implemented
 
+Wavelet Description
+Haar Simplest wavelet, based on averages and differences
+Daubechies-4 4-tap orthogonal wavelet with better frequency localization
+CDF 9/7 Biorthogonal wavelet used in JPEG2000, implemented via lifting scheme
 
-Disclaimer
+⚠️ Disclaimer
 
-This is a vibe coding project — built experimentally without rigorous testing or production-quality standards. It's meant for learning, exploration, and having fun with wavelet transforms. Use at your own risk!
+This is a vibe coding project — experimental, exploratory, and not rigorously tested.
 
-References
+It exists for learning, experimentation, and having fun with wavelet transforms.
+
+Use at your own risk.
+
+📚 References
 
 Haar Wavelet
 Daubechies Wavelets
 CDF 9/7 Wavelet
 Lifting Scheme
 
-License
+📜 License
 
 Do whatever you want with it. 🤷
