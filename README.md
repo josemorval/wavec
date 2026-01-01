@@ -1,143 +1,125 @@
-🌊 Wavec — Wavelet Image Codec
+# Wavec - Wavelet Image Codec
 
-Wavec is an experimental wavelet-based image compression tool built as a vibe coding project — exploratory, educational, and made for fun.
+![Windows](https://img.shields.io/badge/platform-Windows-blue)
+![C++](https://img.shields.io/badge/language-C++-orange)
 
-🧪 This is not a production-ready codec. It’s a playground for learning and experimenting with wavelet transforms.
+> A simple wavelet-based image compression tool built through vibe coding â€” experimental, exploratory, and made for fun.
 
-📸 Screenshot
+***
 
-✨ Features
+## ðŸ“¸ Screenshot
 
-Wavec is a Windows desktop application that can:
+!\[screenshot.png]
 
-Load 24-bit BMP images
+***
 
-Apply 2D Discrete Wavelet Transform (DWT) using:
+## What is this?
 
-Haar
+**Wavec** is a Windows desktop application that implements wavelet-based image compression. It can:
 
-Daubechies-4 (Db4)
+* ðŸ“‚ Load 24-bit BMP images
+* ðŸ”„ Apply 2D Discrete Wavelet Transform (DWT) using **Haar**, **Daubechies-4**, or **CDF 9/7** wavelets
+* âœ‚ï¸ Discard small coefficients for compression
+* ðŸ“Š Quantize remaining coefficients
+* ðŸ’¾ Save to a custom `.WT` sparse format
+* ðŸ–¼ï¸ Reconstruct images using Inverse DWT
 
-CDF 9/7
+***
 
-Discard small coefficients for lossy compression
+## âš ï¸ Important: Image Requirements
 
-Quantize remaining coefficients
+> **Use BMP images with dimensions that are powers of 2**\
+> (e.g., 256Ã—256, 512Ã—512, 1024Ã—1024, 512Ã—256, etc.)
 
-Save to a custom .WT sparse format
+This ensures optimal wavelet decomposition across all levels. Non-power-of-2 dimensions may work but could produce unexpected results or artifacts.
 
-Reconstruct images using the Inverse DWT
+***
 
-Export reconstructed images as BMP
+## ðŸ”§ Building
 
-⚠️ Image Requirements
+### Requirements
 
-Use BMP images with dimensions that are powers of two, for example:
+* Windows 10/11
+* Visual Studio 2022 (Community edition works fine)
+* Windows SDK
 
-256 × 256
+### Compilation
 
-512 × 512
+Run the provided batch file:
 
-1024 × 1024
-
-512 × 256
-
-This ensures optimal wavelet decomposition across all levels.
-Non–power-of-two dimensions may work, but can produce unexpected results or artifacts.
-
-🛠️ Building
-Requirements
-
-Windows 10 / 11
-
-Visual Studio 2022 (Community edition works fine)
-
-Windows SDK
-
-Automatic Build
-
+```batch
 compile.bat
+```
 
-Manual Build
+Or manually:
 
+```batch
 call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 rc wavec.rc
 cl wavec.cpp wavec.res user32.lib gdi32.lib comdlg32.lib comctl32.lib /Fe:wavec.exe /O2
+```
 
-▶️ Usage
+***
 
-Open BMP
-File > Open BMP... or Ctrl + O
+## ðŸš€ Usage
 
-Transform
-Process > Transform... or F5
+1. **Open a BMP** â€” `File > Open BMP...` or `Ctrl+O`
+2. **Transform** â€” `Process > Transform...` or `F5`
+   * Select wavelet type (Haar, Db4, CDF 9/7)
+   * Choose decomposition levels (Auto recommended)
+   * Set discard percentage (higher = more compression, more loss)
+   * Adjust quantization bits (lower = smaller file, more artifacts)
+3. **Save as WT** â€” `File > Save WT...` to save compressed format
+4. **Save as BMP** â€” `File > Save BMP...` to export reconstructed image
+5. **Reset** â€” `F7` to restore original image
 
-Configure:
+### âŒ¨ï¸ Keyboard Shortcuts
 
-Wavelet type (Haar, Db4, CDF 9/7)
+| Key | Action |
+|:---:|:---|
+| `F5` | Transform |
+| `F7` | Reset |
+| `Ctrl+O` | Open BMP |
+| `Ctrl+S` | Save BMP |
 
-Decomposition levels (Auto recommended)
+***
 
-Discard percentage (higher = more compression, more loss)
+## ðŸ“¦ The .WT Format
 
-Quantization bits (lower = smaller file, more artifacts)
+A custom sparse format that stores only non-zero wavelet coefficients as `(index, quantized_value)` pairs. Includes metadata for reconstruction:
 
-Save:
+* Image dimensions
+* Wavelet type and decomposition levels
+* Quantization parameters
+* Coefficient value range for dequantization
 
-File > Save WT... — save compressed format
+***
 
-File > Save BMP... — export reconstructed image
+## ðŸŒŠ Wavelets Implemented
 
-Reset:
+| Wavelet | Description |
+|:---|:---|
+| **Haar** | Simplest wavelet, uses averages and differences |
+| **Daubechies-4** | 4-tap orthogonal wavelet with better frequency localization |
+| **CDF 9/7** | Biorthogonal wavelet used in JPEG2000, implemented via lifting scheme |
 
-F7 restores the original image
+***
 
-⌨️ Keyboard Shortcuts
+## âš¡ Disclaimer
 
-Key Action
-F5 Transform
-F7 Reset
-Ctrl+O Open BMP
-Ctrl+S Save BMP
+> This is a **vibe coding project** â€” built experimentally without rigorous testing or production-quality standards. It's meant for learning, exploration, and having fun with wavelet transforms. **Use at your own risk!**
 
-📦 The .WT Format
+***
 
-A custom sparse format that stores only non-zero wavelet coefficients as:
+## ðŸ“š References
 
-(index, quantized_value)
+* [Haar Wavelet](https://en.wikipedia.org/wiki/Haar_wavelet)
+* [Daubechies Wavelets](https://en.wikipedia.org/wiki/Daubechies_wavelet)
+* [CDF 9/7 Wavelet](https://en.wikipedia.org/wiki/Cohen%E2%80%93Daubechies%E2%80%93Feauveau_wavelet)
+* [Lifting Scheme](https://en.wikipedia.org/wiki/Lifting_scheme)
 
-It includes all metadata required for reconstruction:
+***
 
-Image dimensions
+## ðŸ“„ License
 
-Wavelet type and decomposition levels
-
-Quantization parameters
-
-Coefficient value range for dequantization
-
-🌊 Wavelets Implemented
-
-Wavelet Description
-Haar Simplest wavelet, based on averages and differences
-Daubechies-4 4-tap orthogonal wavelet with better frequency localization
-CDF 9/7 Biorthogonal wavelet used in JPEG2000, implemented via lifting scheme
-
-⚠️ Disclaimer
-
-This is a vibe coding project — experimental, exploratory, and not rigorously tested.
-
-It exists for learning, experimentation, and having fun with wavelet transforms.
-
-Use at your own risk.
-
-📚 References
-
-Haar Wavelet
-Daubechies Wavelets
-CDF 9/7 Wavelet
-Lifting Scheme
-
-📜 License
-
-Do whatever you want with it. 🤷
+Do whatever you want with it. ðŸ¤·
